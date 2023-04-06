@@ -12,11 +12,16 @@ def solution(p: float, x: np.array) -> tuple:
     # Измените код этой функции
     # Это будет вашим решением
     # Не меняйте название функции и её аргументы
+
+
     alpha = 1-p
     n = x.size
     mean = x.mean()
 
-    var_est = 1/(n-1)*(((x-mean)**2).sum())
+    var_est = np.var(x)
 
-    return math.sqrt(((n-1)*var_est/chi2.ppf(1-alpha/2, n-1))/13), \
-           math.sqrt(((n-1)*var_est/chi2.ppf(alpha/2, n-1))/13)
+    xi1 = chi2.ppf(1-(alpha/2), n)
+    xi2 = chi2.ppf((alpha/2), n)
+
+    return math.sqrt(((n-1)*var_est/xi1)/13), \
+           math.sqrt(((n-1)*var_est/xi2)/13)
